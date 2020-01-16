@@ -1,3 +1,4 @@
+// Protobuf file for defining grpc service
 syntax = "proto3";
 
 option java_multiple_files = true;
@@ -7,7 +8,8 @@ option java_outer_classname = "HelloWorldProto";
 package helloworld;
 
 service GreeterService {
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    rpc SayHello (HelloRequest) returns (HelloReply) {
+    }
 }
 
 message HelloRequest {

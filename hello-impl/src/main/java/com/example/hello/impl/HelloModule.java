@@ -4,7 +4,14 @@ import com.example.hello.api.HelloService;
 import com.google.inject.AbstractModule;
 import com.lightbend.lagom.javadsl.server.ServiceGuiceSupport;
 
+/**
+ * Module to bind APIs and services.
+ */
 public class HelloModule extends AbstractModule implements ServiceGuiceSupport {
+
+    /**
+     * Configures a Binder via the exposed methods.
+     */
     @Override
     protected void configure() {
         bindService(
@@ -12,5 +19,4 @@ public class HelloModule extends AbstractModule implements ServiceGuiceSupport {
             additionalRouter(HelloGrpcServiceImpl.class)
         );
     }
-
 }

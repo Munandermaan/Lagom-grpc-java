@@ -17,9 +17,9 @@ public class HelloServiceTest {
     @Test
     public void shouldSayHelloUsingALagomClient() throws Exception {
         withServer(defaultSetup().withCassandra(false), server -> {
-            HelloService service = server.client(HelloService.class);
+           final HelloService service = server.client(HelloService.class);
 
-            String msg = service.hello("Alice").invoke()
+            final String msg = service.hello("Alice").invoke()
                 .toCompletableFuture().get(5, SECONDS);
             assertEquals("Hi Alice!", msg);
         });
@@ -27,15 +27,15 @@ public class HelloServiceTest {
 
     @Test
     public void shouldSayHelloUsingGrpc() throws Exception {
-        withServer(defaultSetup().withSsl(), server -> {
+        withServer(defaultSetup().withSsl().withCassandra(false), server -> {
             AkkaGrpcClientHelpers
                 .withGrpcClient(
                     server,
                     GreeterServiceClient::create,
                     serviceClient -> {
-                        HelloRequest request =
+                       final HelloRequest request =
                             HelloRequest.newBuilder().setName("Steve").build();
-                        HelloReply reply = serviceClient
+                       final HelloReply reply = serviceClient
                             .sayHello(request)
                             .toCompletableFuture()
                             .get(5, SECONDS);

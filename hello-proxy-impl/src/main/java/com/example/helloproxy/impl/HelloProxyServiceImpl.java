@@ -10,15 +10,16 @@ import example.myapp.helloworld.grpc.HelloRequest;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.logging.Logger;
 
 /**
  * HelloGrpcServiceImpl is a singleton class to build the reply using Http.
  */
 @Singleton
-public class HelloProxyServiceImpl implements HelloProxyService {
-
-    private HelloService helloService;
-    private GreeterServiceClient greeterClient;
+public final class  HelloProxyServiceImpl implements HelloProxyService {
+    private static final Logger LOGGER = Logger.getLogger(HelloProxyServiceImpl.class.getName());
+    private final HelloService helloService;
+    private final GreeterServiceClient greeterClient;
 
     /**
      * Parametrized constructor to initialize class parameters using Google Guice.
@@ -27,33 +28,20 @@ public class HelloProxyServiceImpl implements HelloProxyService {
      * @param greeterClient handle GreeterClient.
      */
     @Inject
-    public HelloProxyServiceImpl(
-            HelloService helloService,
-            GreeterServiceClient greeterClient) {
+    public HelloProxyServiceImpl(final HelloService helloService, final GreeterServiceClient greeterClient) {
         this.helloService = helloService;
         this.greeterClient = greeterClient;
     }
 
-    /**
-     * Calls the hello service.
-     *
-     * @param id contains the user id .
-     * @return Greeting message via http.
-     */
     @Override
-    public ServiceCall<NotUsed, String> proxyViaHttp(String id) {
+    public ServiceCall<NotUsed, String> proxyViaHttp(final String id) {
+        LOGGER.info("Greeting through http "+ LOGGER.getName());
         return req -> helloService.hello(id).invoke();
     }
 
-
-    /**
-     * Calls the hello service.
-     *
-     * @param id contains the user id .
-     * @return Greeting message via Grpc.
-     */
     @Override
-    public ServiceCall<NotUsed, String> proxyViaGrpc(String id) {
+    public ServiceCall<NotUsed, String> proxyViaGrpc(final String id) {
+        LOGGER.info("Greeting via GRPC"+ LOGGER.getName());
         return req -> greeterClient
                 .sayHello(
                         HelloRequest

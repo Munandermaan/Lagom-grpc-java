@@ -7,7 +7,7 @@ import com.lightbend.lagom.javadsl.server.ServiceGuiceSupport;
 /**
  * Module to bind APIs and services.
  */
-public class HelloModule extends AbstractModule implements ServiceGuiceSupport {
+public final class HelloModule extends AbstractModule implements ServiceGuiceSupport {
 
     /**
      * Configures a Binder via the exposed methods.

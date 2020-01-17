@@ -13,7 +13,7 @@ import com.lightbend.lagom.javadsl.api.ServiceCall;
  * <p>
  * This describes everything that Lagom needs to know about how to serve and consume the HelloService.
  */
-public interface HelloService extends Service {
+public  interface HelloService extends Service {
 
     /**
      * Simply show the message via http.

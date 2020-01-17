@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 public class HelloProxyServiceImplTest {
 
     private static ServiceTest.TestServer server;
-    private static    HelloProxyService proxyServiceClient ;
+    private static HelloProxyService proxyServiceClient ;
 
     @BeforeClass
     public static void setUp() {
@@ -54,18 +54,17 @@ public class HelloProxyServiceImplTest {
 
     @Test
     public void helloProxyShouldRoundtripHttpRequests() throws InterruptedException, ExecutionException, TimeoutException {
-        String msg = proxyServiceClient.proxyViaHttp("Alice").invoke()
+        final String msg = proxyServiceClient.proxyViaHttp("Alice").invoke()
             .toCompletableFuture().get(5, SECONDS);
         assertEquals("Hello Alice", msg);
     }
+
     @Test
     public void helloProxyShouldRoundtripGrpcRequests() throws InterruptedException, ExecutionException, TimeoutException {
-        String msg = proxyServiceClient.proxyViaGrpc("Steve").invoke()
+       final String msg = proxyServiceClient.proxyViaGrpc("Steve").invoke()
             .toCompletableFuture().get(5, SECONDS);
         assertEquals("Hi Steve (gRPC)", msg);
     }
-
-    // ---------------------------------------------------------------------------------
 
     public static class StubHelloService implements HelloService {
         @Override
@@ -74,19 +73,15 @@ public class HelloProxyServiceImplTest {
         }
     }
 
-
     public static class GreeterServiceClientStub extends GreeterServiceClient implements StubbedAkkaGrpcClient {
         @Override
         public CompletionStage<HelloReply> sayHello(HelloRequest in) {
-            HelloReply reply = HelloReply.newBuilder()
+            final HelloReply reply = HelloReply.newBuilder()
                 .setMessage("Hi " + in.getName() + " (gRPC)")
                 .build();
             return CompletableFuture.completedFuture(reply);
         }
     }
-
-// ------------------------------------------------------------------------
-// ------------------------------------------------------------------------
 
     public interface StubbedAkkaGrpcClient extends AkkaGrpcClient{
         @Override
@@ -99,5 +94,4 @@ public class HelloProxyServiceImplTest {
             return null;
         }
     }
-
 }

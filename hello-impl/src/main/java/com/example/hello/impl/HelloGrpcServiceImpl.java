@@ -10,12 +10,14 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.logging.Logger;
 
 /**
  * HelloGrpcServiceImpl is a singleton class to build the reply using Grpc.
  */
 @Singleton
-public class HelloGrpcServiceImpl extends AbstractGreeterServiceRouter {
+public final class HelloGrpcServiceImpl extends AbstractGreeterServiceRouter {
+    private static final Logger LOGGER = Logger.getLogger(HelloGrpcServiceImpl.class.getName());
 
     /**
      * Parametrized constructor to initialize class parameters using Google Guice.
@@ -24,13 +26,14 @@ public class HelloGrpcServiceImpl extends AbstractGreeterServiceRouter {
      * @param mat materializer to set medium.
      */
     @Inject
-    public HelloGrpcServiceImpl(ActorSystem sys, Materializer mat) {
+    public HelloGrpcServiceImpl(final ActorSystem sys, final Materializer mat) {
         super(mat, sys);
     }
 
     @Override
-    public CompletionStage<HelloReply> sayHello(HelloRequest in) {
-        HelloReply reply = HelloReply
+    public CompletionStage<HelloReply> sayHello(final HelloRequest in) {
+        LOGGER.info("Greeting user"+ LOGGER.getName());
+        final HelloReply reply = HelloReply
                 .newBuilder()
                 .setMessage("Hi " + in.getName() + " (gRPC)")
                 .build();

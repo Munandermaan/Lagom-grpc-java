@@ -35,13 +35,13 @@ public final class  HelloProxyServiceImpl implements HelloProxyService {
 
     @Override
     public ServiceCall<NotUsed, String> proxyViaHttp(final String id) {
-        LOGGER.info("Greeting through http "+ LOGGER.getName());
+        LOGGER.info("Greeting through http for id "+ id);
         return req -> helloService.hello(id).invoke();
     }
 
     @Override
     public ServiceCall<NotUsed, String> proxyViaGrpc(final String id) {
-        LOGGER.info("Greeting via GRPC"+ LOGGER.getName());
+        LOGGER.info("Greeting via GRPC for user ID" + id);
         return req -> greeterClient
                 .sayHello(
                         HelloRequest

@@ -24,7 +24,7 @@ public final class HelloServiceImpl implements HelloService {
 
     @Override
     public ServiceCall<NotUsed, String> hello(final String id) {
-       LOGGER.info("Hi greeting message to user"+ LOGGER.getName());
+       LOGGER.info("Hi greeting message to user" + id);
         return req -> CompletableFuture.completedFuture("Hi " + id + "!");
     }
 }

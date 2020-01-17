@@ -13,7 +13,6 @@ import java.util.logging.Logger;
  * Services Call methods related to the routes for API.
  */
 public final class HelloServiceImpl implements HelloService {
-
     private final static Logger LOGGER = Logger.getLogger(HelloServiceImpl.class.getName());
 
     /**

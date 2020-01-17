@@ -32,7 +32,7 @@ public final class HelloGrpcServiceImpl extends AbstractGreeterServiceRouter {
 
     @Override
     public CompletionStage<HelloReply> sayHello(final HelloRequest in) {
-        LOGGER.info("Greeting user"+ LOGGER.getName());
+        LOGGER.info("Greeting user" + LOGGER.getName());
         final HelloReply reply = HelloReply
                 .newBuilder()
                 .setMessage("Hi " + in.getName() + " (gRPC)")

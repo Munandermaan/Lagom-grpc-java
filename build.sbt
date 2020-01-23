@@ -45,6 +45,7 @@ lazy val `hello-impl` = (project in file("hello-impl"))
   libraryDependencies ++= Seq(
     lagomJavadslTestKit,
     lagomLogback,
+    lagomJavadslPersistenceCassandra,
     lagomGrpcTestkit
   )
 ).settings(lagomForkedTestSettings: _*)
@@ -75,9 +76,9 @@ lazy val `hello-proxy-impl` = (project in file("hello-proxy-impl"))
 
 lazy val docs = (project in file("docs")).enablePlugins(ParadoxPlugin)
 
-lagomCassandraEnabled in ThisBuild := false
+lagomCassandraEnabled in ThisBuild := true
+lagomCassandraCleanOnStart in ThisBuild := true
 lagomKafkaEnabled in ThisBuild := false
-
 
 // This adds an entry on the LagomDevMode Service Registry. With this information on
 // the Service Registry a client using Service Discovery to Lookup("helloworld.GreeterService")
